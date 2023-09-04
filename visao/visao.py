@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from controle.controle import Controle
 
-
 class Visao(ABC):
     def __init__(self, controle: Controle):
         self.controle = controle
@@ -12,30 +11,20 @@ class Visao(ABC):
             if opcao == 0:
                 return
             elif opcao == 1:
-                self.insercao()
+                self.gravar()
             elif opcao == 2:
-                self.exclusao()
+                self.apagar()
             elif opcao == 3:
-                self.alteracao()
-            elif opcao == 4:
-                self.buscaID()
-            elif opcao == 5:
-                self.buscaVal()
+                self.buscar()
     
     @abstractmethod
     def menu(self): pass
 
     @abstractmethod
-    def insercao(self): pass
+    def gravar(self): pass
 
     @abstractmethod
-    def exclusao(self): pass
+    def apagar(self): pass
     
     @abstractmethod
-    def alteracao(self): pass 
-
-    @abstractmethod
-    def buscaID(self): pass 
-
-    @abstractmethod
-    def buscaVal(self): pass 
+    def buscar(self): pass 
