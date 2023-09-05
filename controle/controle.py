@@ -8,8 +8,8 @@ class Controle(ABC):
     def gravar(self, entidade):
         self.persistencia.gravar(entidade)
     
-    def apagar(self, entidade):
-        return self.persistencia.apagar(entidade)
+    def apagar(self, termo):
+        return self.persistencia.apagar(termo)
 
-    def buscar(self, user: str, *args):
-        return self.persistencia.buscar(user, *args)
+    def buscar(self, termo: str, *args):
+        return self.persistencia.buscar(termo, *args)

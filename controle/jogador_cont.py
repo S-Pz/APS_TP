@@ -5,5 +5,5 @@ class JogadorControle(Controle):
     def __init__(self):
         super().__init__(JogadorPersistencia())
 
-    def buscar(self, entidade: JogadorPersistencia):
-        return super().buscar(entidade)
+    def buscar(self, termo: str):
+        return super().buscar(termo)

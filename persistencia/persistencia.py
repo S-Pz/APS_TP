@@ -6,7 +6,7 @@ class Persistencia(ABC):
     def gravar(self, pessoa: Pessoa): pass 
     
     @abstractmethod
-    def apagar(self, pessoa: Pessoa): pass 
+    def apagar(self, termo: str): pass 
     
     @abstractmethod
     def buscar(self, termo: str, *args): pass 
