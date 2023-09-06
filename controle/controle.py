@@ -6,7 +6,7 @@ class Controle(ABC):
         self.persistencia = persistencia
 
     def gravar(self, entidade):
-        self.persistencia.gravar(entidade)
+        return self.persistencia.gravar(entidade)
     
     def apagar(self, termo):
         return self.persistencia.apagar(termo)

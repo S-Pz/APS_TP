@@ -19,26 +19,16 @@ TABLES['PESSOA'] = (
          "`salario` decimal(12, 2) NOT NULL,"
          "`telefone` varchar(20) NOT NULL,"
          "`funcao` varchar(20) NOT NULL,"
-         "PRIMARY KEY(`cpf`)"
+         "FOREIGN KEY(`cpf`) REFERENCES USUARIO(`login`)"
          ") DEFAULT CHARSET = utf8"
-        )
-
-TABLES['JOGADOR'] = (
-        "CREATE TABLE `JOGADOR` ("
-        "`numero_camisa` int UNIQUE NOT NULL,"
-        "`posicao` varchar(15) NOT NULL,"
-        "`cpf_jogador` varchar(20) UNIQUE NOT NULL,"
-        "FOREIGN KEY(`cpf_jogador`) REFERENCES PESSOA(`cpf`)"
-        ") DEFAULT CHARSET = utf8"
         )
 
 TABLES['USUARIO'] = (
         "CREATE TABLE `USUARIO` ("
         "`tipo` enum('ADMIN', 'NORMAL') NOT NULL,"
-        "`login` varchar(30) UNIQUE NOT NULL,"
+        "`login` varchar(30) NOT NULL,"
         "`senha` varchar(30) NOT NULL,"
-        "`cpf_pessoa` varchar(15) NOT NULL,"
-        "FOREIGN KEY(`cpf_pessoa`) REFERENCES PESSOA(`cpf`)"
+        "PRIMARY KEY(`login`)"
         ") DEFAULT CHARSET = utf8"
         )
 

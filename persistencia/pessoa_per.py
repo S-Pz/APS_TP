@@ -3,31 +3,55 @@ from persistencia.persistencia import Persistencia
 import mysql.connector
 
 class PessoaPersistencia(Persistencia):
-    conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
-    cursor = conexao.cursor()
-
-    def gravar(self, entidade: Pessoa):
-        add_pessoa = ("INSERT INTO PESSOA "
-                       "(nome, cpf, data_nasc, salario, telefone, funcao) "
-                       "VALUES (%s, %s, %s, %s, %s, %s)")
+    def gravar(self, entidade: Pessoa) -> bool:
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+        cursor = conexao.cursor()
+        add_pessoa = ("INSERT INTO PESSOA"
+                     "(nome, cpf, data_nasc, salario, telefone, funcao)"
+                     "VALUES (%s, %s, %s, %s, %s, %s)")
         dado_pessoa = (entidade.nome, entidade.cpf, entidade.data_nasc, entidade.salario, entidade.telefone, entidade.funcao)
-        if entidade.funcao.strip().lower() == "jogador":
-            pass
-        self.cursor.execute(add_pessoa, dado_pessoa)
-        self.conexao.commit()
-        self.cursor.close()
-        self.conexao.close()
+        try:
+            cursor.execute(add_pessoa, dado_pessoa)
+            print(f"Cadastrando pessoa")
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            return True
+        except mysql.connector.errors.IntegrityError:
+            print(f"Pessoa já presente no banco")
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            return False
 
-    def apagar(self, entidade: Pessoa):
+    def apagar(self, cpf: str):
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+        cursor = conexao.cursor()
         del_pessoa = ("DELETE FROM PESSOA WHERE CPF=%s")
-        self.cursor.execute(del_pessoa, entidade.pessoa.cpf)
-        self.conexao.commit()
-        self.cursor.close()
-        self.conexao.close()
-
-    def buscar(self, entidade: Pessoa):
-        busca_pessoa = ("SELECT * FROM PESSOA WHERE NOME=%s")
-        self.cursor.execute(busca_pessoa, entidade.pessoa.nome)
-        self.conexao.commit()
-        self.cursor.close()
-        self.conexao.close()
+        try:
+            cursor.execute(del_pessoa, (cpf,))
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            print(f"Pessoa excluída com sucesso")
+            return True
+        except:
+            print(f"Pessoa não pode ser excluída")
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            return False
+    
+    def buscar(self, termo: str):
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+        cursor = conexao.cursor()
+        print(f"Termo: {termo}")
+        busca_pessoa = ("SELECT * FROM PESSOA")
+        cursor.execute(busca_pessoa)
+        pessoas = cursor.fetchall()
+        for row in pessoas:
+            print(f"ROW: {row}")
+        conexao.commit()
+        cursor.close()
+        conexao.close()
+        return pessoas

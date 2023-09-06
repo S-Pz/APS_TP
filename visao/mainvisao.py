@@ -1,16 +1,14 @@
 from customtkinter import *
 
-from visao.jogador_visao import JogadorVisao
-from visao.patrocinador_visao import PatrocinadorVisao
+from visao.pessoa_visao import PessoaVisao
 from visao.usuario_visao import UsuarioVisao
 
-from controle.jogador_cont import JogadorControle
-from controle.patrocinador_cont import PatrocinadorControle
+from controle.pessoa_cont import PessoaControle
 from controle.usuario_cont import UsuarioControle
 
 class MainVisao:
     def __init__(self):
-        self.jogador_controle = JogadorControle()
+        self.pessoa_controle = PessoaControle()
         self.usuario_controle = UsuarioControle()
 
     def menu(self):
@@ -18,8 +16,8 @@ class MainVisao:
             limpa_tela()
             tela_logado = CTkFrame(root)
             tela_logado.grid()
-            btn_jogador = CTkButton(tela_logado, text="JOGADOR", command= lambda: jogador_visao.menu(tipo_user))
-            btn_jogador.grid(pady=10, padx=10)
+            btn_pessoa = CTkButton(tela_logado, text="PESSOA", command= lambda: pessoa_visao.menu(tipo_user))
+            btn_pessoa.grid(pady=10, padx=10)
             if tipo_user == 2:
                 btn_user = CTkButton(tela_logado, text="USUÁRIO", command= lambda: usuario_visao.menu(tipo_user))
                 btn_user.grid(pady=10, padx=10)
@@ -42,6 +40,9 @@ class MainVisao:
             btn_sair.grid(pady=10, padx=10)
 
         def expand_options():
+            def cadastro():
+                usuario_visao.gravar()
+                pessoa_visao.gravar()
             def checa_bd():
                 user_get = texto_user.get()
                 senha_get = texto_senha.get()
@@ -64,6 +65,7 @@ class MainVisao:
             label_senha = CTkLabel(container, text="SENHA:")
             texto_senha = CTkEntry(container, show="*")
             btn_login = CTkButton(container, text="LOGIN", command=checa_bd)
+            btn_cadastrar = CTkButton(container, text="CADASTRAR", command=cadastro)
             btn_voltar = CTkButton(container, text="VOLTAR", command= menu_inicial)
 
             label_user.grid(row=0, column=0, sticky=W, padx=10, pady=10)
@@ -72,6 +74,7 @@ class MainVisao:
             texto_senha.grid(row=1, column=1, padx=10, pady=10)
             btn_login.grid(row=2, column=0, columnspan=2, pady=10)
             btn_voltar.grid(row=3, column=0, columnspan=2, pady=10)
+            btn_cadastrar.grid(row=4, column=0, columnspan=2, pady=10)
         
         root = CTk()
         root.geometry("350x450")
@@ -80,7 +83,7 @@ class MainVisao:
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
         menu_inicial()
-        jogador_visao = JogadorVisao(self.jogador_controle)
+        pessoa_visao = PessoaVisao(self.pessoa_controle)
         usuario_visao = UsuarioVisao(self.usuario_controle)
         
         root.mainloop()
