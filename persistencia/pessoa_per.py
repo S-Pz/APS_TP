@@ -46,8 +46,8 @@ class PessoaPersistencia(Persistencia):
         conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
         cursor = conexao.cursor()
         print(f"Termo: {termo}")
-        busca_pessoa = ("SELECT * FROM PESSOA")
-        cursor.execute(busca_pessoa)
+        busca_pessoa = ("SELECT * FROM PESSOA WHERE NOME LIKE %s")
+        cursor.execute(busca_pessoa, ("%" + termo + "%",))
         pessoas = cursor.fetchall()
         for row in pessoas:
             print(f"ROW: {row}")

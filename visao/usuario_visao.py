@@ -34,7 +34,7 @@ class UsuarioVisao(Visao):
             user_ins = CTkButton(container, text="INSERIR USUÁRIO", command=self.gravar).grid(pady=10, padx=10)
             user_exc = CTkButton(container, text="EXCLUIR USUÁRIO", command=self.apagar).grid(pady=10, padx=10)
         user_bID = CTkButton(container, text="BUSCAR USUÁRIO", command=self.buscar).grid(pady=10, padx=10)
-        #btn_voltar = CTkButton(top_user, text="VOLTAR", command=).grid(pady=10, padx=10)
+        btn_voltar = CTkButton(top_user, text="VOLTAR", command=top_user.destroy).grid(pady=10, padx=10)
 
     def gravar(self):
         def persistir():
