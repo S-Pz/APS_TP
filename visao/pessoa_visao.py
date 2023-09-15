@@ -1,5 +1,6 @@
 from tkinter.ttk import Treeview
 from customtkinter import *
+from visao import usuario_visao
 
 from visao.visao import Visao
 from controle.controle import Controle
@@ -40,12 +41,13 @@ class PessoaVisao(Visao):
             pessoa_gravar.grid(pady=10, padx=10)
             pessoa_apagar = CTkButton(container, text="EXCLUIR PESSOA", command=self.apagar)
             pessoa_apagar.grid(pady=10, padx=10)
-            #pessoa_marcar_treino = CTkButton(container, text="MARCAR TREINO").grid(pady=10, padx=10)
  
-        #pessoa_treino = CTkButton(container, text="VER TREINOS").grid(pady=10, padx=10)
         pessoa_voltar = CTkButton(container, text="VOLTAR AO MENU INICIAL", command=top_pessoa.destroy).grid(pady=10, padx=10)
 
-    def gravar(self):
+    def gravar(self, usuario_visao):
+        def cadastro_user(cpf):
+            usuario_visao.gravar(cpf)
+
         def persistir():
             nome = texto_nome.get()
             cpf = texto_cpf.get()
@@ -54,17 +56,18 @@ class PessoaVisao(Visao):
             salario = float( texto_salario.get() )
             telefone = texto_telefone.get()
             funcao = texto_funcao.get()
-            #global o_pessoa
             o_pessoa = Pessoa(nome, cpf, data, salario, telefone, funcao)
             salvou_ou_nao = self.controle.gravar(o_pessoa)
             gravou_janela = CTkToplevel()
             if salvou_ou_nao:
                 gravou_janela.title("CADASTRO BEM SUCEDIDO")
                 label_gravou = CTkLabel(gravou_janela, text="PESSOA CADASTRADA COM SUCESSO").grid(pady=10, padx=10)
+                btn_gravou = CTkButton(gravou_janela, text="OK", command= lambda: [gravou_janela.destroy(), cadastro_user(cpf), top_pessoa_gravar.destroy()]).grid(pady=10, padx=10)
+                #cadastro_user(cpf)
             else:
                 gravou_janela.title("CADASTRO NÃO REALIZADO")
                 label_nao_gravou = CTkLabel(gravou_janela, text="NÃO FOI POSSÍVEL CADASTRAR A PESSOA\nREVISE OS DADOS").grid(pady=10, padx=10)
-            btn_gravou = CTkButton(gravou_janela, text="OK", command=gravou_janela.destroy).grid(pady=10, padx=10)
+                btn_gravou = CTkButton(gravou_janela, text="OK", command=gravou_janela.destroy).grid(pady=10, padx=10)
 
         top_pessoa_gravar = CTk()
         top_pessoa_gravar.geometry("800x800")

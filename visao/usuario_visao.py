@@ -16,7 +16,14 @@ class UsuarioVisao(Visao):
             widget.grid_remove()
 
     def menu_inicial_user(self):
-        pass
+        self.limpa_tela()
+        container = CTkFrame(top_user)
+        container.grid(pady=10, padx=10)
+
+        btn_voltar  = CTkButton(container, text="VOLTAR", command=top_user.destroy)
+        btn_voltar.grid(pady=10, padx=10)
+        btn_buscar = CTkButton(container, text="BUSCAR USUARIO", command=self.buscar)
+        btn_buscar.grid(pady=10, padx=10)
 
     def menu(self, tipo_user: int):
         global top_user
@@ -36,13 +43,9 @@ class UsuarioVisao(Visao):
         user_bID = CTkButton(container, text="BUSCAR USUÁRIO", command=self.buscar).grid(pady=10, padx=10)
         btn_voltar = CTkButton(top_user, text="VOLTAR", command=top_user.destroy).grid(pady=10, padx=10)
 
-    def gravar(self, pessoa_visao):
-        def cadastro_pessoa():
-            pessoa_visao.gravar()
-
+    def gravar(self, cpf):
         def persistir():
             tipo = "NORMAL"
-            login = texto_id.get()
             senha = texto_senha.get()
             confirma = texto_confirma.get()
             if senha != confirma:
@@ -53,17 +56,17 @@ class UsuarioVisao(Visao):
 
                 print("As senhas não conferem")
             else:
-                usuario = Usuario(login, senha, tipo)
+                usuario = Usuario(cpf, senha, tipo)
                 salvou_ou_nao = self.controle.gravar(usuario)
                 gravou_janela = CTkToplevel()
                 if salvou_ou_nao:
                     gravou_janela.title("CADASTRO BEM SUCEDIDO")
                     label_gravou = CTkLabel(gravou_janela, text="USUÁRIO CADASTRADO COM SUCESSO").grid(pady=10, padx=10)
-                    cadastro_pessoa()
+                    btn_gravou = CTkButton(gravou_janela, text="OK", command= lambda: [gravou_janela.destroy(), top_user_gravar.destroy()]).grid(pady=10, padx=10)
                 else:
                     gravou_janela.title("CADASTRO NÃO REALIZADO")
                     label_nao_gravou = CTkLabel(gravou_janela, text="REVISE OS DADOS").grid(pady=10, padx=10)
-                btn_gravou = CTkButton(gravou_janela, text="OK", command=gravou_janela.destroy).grid(pady=10, padx=10)
+                    btn_gravou = CTkButton(gravou_janela, text="OK", command=gravou_janela.destroy).grid(pady=10, padx=10)
 
         top_user_gravar = CTk()
         top_user_gravar.title("INSERIR USUÁRIO")
@@ -71,9 +74,9 @@ class UsuarioVisao(Visao):
         container = CTkFrame(top_user_gravar)
         container.grid()
 
-        lbl_id_user = CTkLabel(container, text="DIGITE O CPF DO USUÁRIO").grid(pady=10, padx=10)
-        texto_id = CTkEntry(container, font=("Helvetica", 18))
-        texto_id.grid(pady=10, padx=10)
+        #lbl_id_user = CTkLabel(container, text="DIGITE O CPF DO USUÁRIO").grid(pady=10, padx=10)
+        #texto_id = CTkEntry(container, font=("Helvetica", 18))
+        #texto_id.grid(pady=10, padx=10)
 
         lbl_user_senha = CTkLabel(container, text="DIGITE A SENHA DO USUÁRIO").grid(pady=10, padx=10)
         texto_senha = CTkEntry(container, font=("Helvetica", 18))
@@ -155,7 +158,7 @@ class UsuarioVisao(Visao):
         top_user_buscar = CTkFrame(top_user)
         top_user_buscar.grid(pady=10, padx=10)
 
-        lbl_id_user = CTkLabel(top_user_buscar, text="DIGITE O NOME DO PESSOA").grid(pady=10, padx=10)
+        lbl_id_user = CTkLabel(top_user_buscar, text="DIGITE O LOGIN DO USUARIO").grid(pady=10, padx=10)
         texto_id = CTkEntry(top_user_buscar, font=("Helvetica", 18))
         texto_id.grid(pady=10)
 

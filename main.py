@@ -19,7 +19,7 @@ TABLES['PESSOA'] = (
          "`salario` decimal(12, 2) NOT NULL,"
          "`telefone` varchar(20) NOT NULL,"
          "`funcao` varchar(20) NOT NULL,"
-         "FOREIGN KEY(`cpf`) REFERENCES USUARIO(`login`)"
+         "PRIMARY KEY(`cpf`)"
          ") DEFAULT CHARSET = utf8"
         )
 
@@ -28,7 +28,7 @@ TABLES['USUARIO'] = (
         "`tipo` enum('ADMIN', 'NORMAL') NOT NULL,"
         "`login` varchar(30) NOT NULL,"
         "`senha` varchar(30) NOT NULL,"
-        "PRIMARY KEY(`login`)"
+        "FOREIGN KEY(`login`) REFERENCES PESSOA(`cpf`)"
         ") DEFAULT CHARSET = utf8"
         )
 
