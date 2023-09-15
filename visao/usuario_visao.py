@@ -36,7 +36,10 @@ class UsuarioVisao(Visao):
         user_bID = CTkButton(container, text="BUSCAR USUÁRIO", command=self.buscar).grid(pady=10, padx=10)
         btn_voltar = CTkButton(top_user, text="VOLTAR", command=top_user.destroy).grid(pady=10, padx=10)
 
-    def gravar(self):
+    def gravar(self, pessoa_visao):
+        def cadastro_pessoa():
+            pessoa_visao.gravar()
+
         def persistir():
             tipo = "NORMAL"
             login = texto_id.get()
@@ -56,6 +59,7 @@ class UsuarioVisao(Visao):
                 if salvou_ou_nao:
                     gravou_janela.title("CADASTRO BEM SUCEDIDO")
                     label_gravou = CTkLabel(gravou_janela, text="USUÁRIO CADASTRADO COM SUCESSO").grid(pady=10, padx=10)
+                    cadastro_pessoa()
                 else:
                     gravou_janela.title("CADASTRO NÃO REALIZADO")
                     label_nao_gravou = CTkLabel(gravou_janela, text="REVISE OS DADOS").grid(pady=10, padx=10)

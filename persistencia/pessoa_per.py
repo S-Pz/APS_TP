@@ -47,7 +47,7 @@ class PessoaPersistencia(Persistencia):
         cursor = conexao.cursor()
         print(f"Termo: {termo}")
         busca_pessoa = ("SELECT * FROM PESSOA WHERE NOME LIKE %s")
-        cursor.execute(busca_pessoa, ("%" + termo + "%",))
+        cursor.execute(busca_pessoa, (termo + "%",))
         pessoas = cursor.fetchall()
         for row in pessoas:
             print(f"ROW: {row}")

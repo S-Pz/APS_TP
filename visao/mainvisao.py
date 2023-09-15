@@ -40,9 +40,9 @@ class MainVisao:
             btn_sair.grid(pady=10, padx=10)
 
         def expand_options():
-            def cadastro():
-                usuario_visao.gravar()
-                pessoa_visao.gravar()
+            def cadastro_user():
+                usuario_visao.gravar(pessoa_visao)
+
             def checa_bd():
                 user_get = texto_user.get()
                 senha_get = texto_senha.get()
@@ -65,7 +65,7 @@ class MainVisao:
             label_senha = CTkLabel(container, text="SENHA:")
             texto_senha = CTkEntry(container, show="*")
             btn_login = CTkButton(container, text="LOGIN", command=checa_bd)
-            btn_cadastrar = CTkButton(container, text="CADASTRAR", command=cadastro)
+            btn_cadastrar = CTkButton(container, text="CADASTRAR", command=cadastro_user)
             btn_voltar = CTkButton(container, text="VOLTAR", command= menu_inicial)
 
             label_user.grid(row=0, column=0, sticky=W, padx=10, pady=10)
