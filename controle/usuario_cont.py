@@ -6,5 +6,5 @@ class UsuarioControle(Controle):
     def __init__(self):
         super().__init__(UsuarioPersistencia())
 
-    def buscar(self, nome: str, senha: str):
-        return super().buscar(nome, senha)
+    def buscar(self, nome: str, *args):
+        return super().buscar(nome, args)

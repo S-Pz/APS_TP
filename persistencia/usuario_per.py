@@ -7,9 +7,9 @@ class UsuarioPersistencia(Persistencia):
         conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
         cursor = conexao.cursor()
         add_usuario = ("INSERT INTO USUARIO "
-                       "(tipo, login, senha) "
-                       "VALUES (%s, %s, %s)")
-        dado_usuario = (entidade.tipo, entidade.login, entidade.senha)
+                       "(nome, tipo, login, senha) "
+                       "VALUES (%s, %s, %s, %s)")
+        dado_usuario = (entidade.nome, entidade.tipo, entidade.login, entidade.senha)
         try:
             cursor.execute(add_usuario, dado_usuario)
             print(f"Cadastrando usuário")
@@ -27,9 +27,7 @@ class UsuarioPersistencia(Persistencia):
     def apagar(self, login: str):
         conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
         cursor = conexao.cursor()
-        del_pessoa = ("DELETE FROM PESSOA WHERE CPF=%s")
         try: 
-            cursor.execute(del_pessoa, (login,))
             del_usuario = ("DELETE FROM USUARIO WHERE LOGIN=%s")
             cursor.execute(del_usuario, (login,))
             conexao.commit()
@@ -41,27 +39,40 @@ class UsuarioPersistencia(Persistencia):
             conexao.commit()
             cursor.close()
             conexao.close()
-            print(f"Usuário deletado")
+            print(f"Usuário não deletado")
             return False
     
-    def buscar(self, nome: str, senha: str):
+    def buscar(self, nome: str, *args): # True: buscar banco, False: buscar usuario
         conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
         cursor = conexao.cursor()
-        busca_usuario = ("SELECT * FROM USUARIO WHERE LOGIN=%s AND SENHA=%s")
-        cursor.execute(busca_usuario, ( nome, senha ))
-        row = cursor.fetchone()
-        if row and "NORMAL" in row:
-            print(f"Usuário normal no banco")
-            conexao.commit()
+        print(f"Len args: {len(args)} args: {args[0]}")
+
+        # args [0][1]: True ou False; args[0][0]: senha
+        if len(args[0]) > 0:
+            if args[0][1]:
+                busca_banco = ("SELECT * FROM USUARIO WHERE LOGIN=%s AND SENHA=%s")
+                cursor.execute(busca_banco, (nome, args[0][0]))
+                row = cursor.fetchone()
+                if row and "NORMAL" in row:
+                    print(f"Usuário normal no banco")
+                    conexao.commit()
+                    cursor.close()
+                    conexao.close()
+                    return 1
+                elif row and "ADMIN" in row:
+                    print(f"Usuário admin no banco")
+                    conexao.commit()
+                    cursor.close()
+                    conexao.close()
+                    return 2 
+        else: 
+            busca_usuario = ("SELECT * FROM USUARIO WHERE NOME LIKE %s")
+            cursor.execute(busca_usuario, (nome + "%",))
+            usuarios = cursor.fetchall()
             cursor.close()
             conexao.close()
-            return 1
-        elif row and "ADMIN" in row:
-            print(f"Usuário admin no banco")
-            conexao.commit()
-            cursor.close()
-            conexao.close()
-            return 2 
+            return usuarios
+
         print(f"Usuário não está presente no banco")
         cursor.close()
         conexao.close()
