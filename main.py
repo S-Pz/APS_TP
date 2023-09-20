@@ -19,16 +19,19 @@ TABLES['PESSOA'] = (
          "`salario` decimal(12, 2) NOT NULL,"
          "`telefone` varchar(20) NOT NULL,"
          "`funcao` varchar(20) NOT NULL,"
-         "PRIMARY KEY(`cpf`)"
+         "PRIMARY KEY(`cpf`),"
+         "UNIQUE KEY(`nome`)"
          ") DEFAULT CHARSET = utf8"
         )
 
 TABLES['USUARIO'] = (
         "CREATE TABLE `USUARIO` ("
+        "`nome` varchar(30) NOT NULL,"
         "`tipo` enum('ADMIN', 'NORMAL') NOT NULL,"
         "`login` varchar(30) NOT NULL,"
         "`senha` varchar(30) NOT NULL,"
-        "FOREIGN KEY(`login`) REFERENCES PESSOA(`cpf`)"
+        "PRIMARY KEY(`login`),"
+        "FOREIGN KEY (`nome`) REFERENCES PESSOA(`nome`)"
         ") DEFAULT CHARSET = utf8"
         )
 

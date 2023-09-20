@@ -1,6 +1,5 @@
 from tkinter.ttk import Treeview
 from customtkinter import *
-from visao import usuario_visao
 
 from visao.visao import Visao
 from controle.controle import Controle
@@ -41,18 +40,17 @@ class PessoaVisao(Visao):
             pessoa_gravar.grid(pady=10, padx=10)
             pessoa_apagar = CTkButton(container, text="EXCLUIR PESSOA", command=self.apagar)
             pessoa_apagar.grid(pady=10, padx=10)
- 
+            #pessoa_marcar_treino = CTkButton(container, text="MARCAR TREINO").grid(pady=10, padx=10)
         pessoa_voltar = CTkButton(container, text="VOLTAR AO MENU INICIAL", command=top_pessoa.destroy).grid(pady=10, padx=10)
 
     def gravar(self, usuario_visao):
-        def cadastro_user(cpf):
-            usuario_visao.gravar(cpf)
+        def cadastro_user(nome):
+            usuario_visao.gravar(nome)
 
         def persistir():
             nome = texto_nome.get()
             cpf = texto_cpf.get()
             data = f"{texto_ano.get()}-{texto_mes.get()}-{texto_dia.get()}"
-            print(f"Data: {data}")
             salario = float( texto_salario.get() )
             telefone = texto_telefone.get()
             funcao = texto_funcao.get()
@@ -62,8 +60,7 @@ class PessoaVisao(Visao):
             if salvou_ou_nao:
                 gravou_janela.title("CADASTRO BEM SUCEDIDO")
                 label_gravou = CTkLabel(gravou_janela, text="PESSOA CADASTRADA COM SUCESSO").grid(pady=10, padx=10)
-                btn_gravou = CTkButton(gravou_janela, text="OK", command= lambda: [gravou_janela.destroy(), cadastro_user(cpf), top_pessoa_gravar.destroy()]).grid(pady=10, padx=10)
-                #cadastro_user(cpf)
+                btn_gravou = CTkButton(gravou_janela, text="OK", command=cadastro_user(nome)).grid(pady=10, padx=10)
             else:
                 gravou_janela.title("CADASTRO NÃO REALIZADO")
                 label_nao_gravou = CTkLabel(gravou_janela, text="NÃO FOI POSSÍVEL CADASTRAR A PESSOA\nREVISE OS DADOS").grid(pady=10, padx=10)
@@ -77,17 +74,17 @@ class PessoaVisao(Visao):
         container = CTkFrame(top_pessoa_gravar)
         container.grid(pady=10, padx=10)
 
-        label_nome_pessoa = CTkLabel(container, text="DIGITE O NOME DO PESSOA")
+        label_nome_pessoa = CTkLabel(container, text="DIGITE O NOME DA PESSOA")
         label_nome_pessoa.grid(row=0, column=1)
         texto_nome = CTkEntry(container, font=("Helvetica", 18))
         texto_nome.grid(column=1, row=1, pady=10, padx=10)
 
-        label_cpf_pessoa = CTkLabel(container, text="DIGITE O CPF DO PESSOA")
+        label_cpf_pessoa = CTkLabel(container, text="DIGITE O CPF DA PESSOA")
         label_cpf_pessoa.grid(row=2, column=1)
         texto_cpf = CTkEntry(container, font=("Helvetica", 18))
         texto_cpf.grid(column=1, row=3,pady=10, padx=10)
 
-        label_data_pessoa = CTkLabel(container, text="DIGITE A DATA DE NASCIMENTO DO PESSOA")
+        label_data_pessoa = CTkLabel(container, text="DIGITE A DATA DE NASCIMENTO DA PESSOA")
         label_data_pessoa.grid(row=4, column=1)
         texto_dia = CTkEntry(container)
         texto_dia.grid(column=0, row=5, pady=10, padx=10)
@@ -96,22 +93,22 @@ class PessoaVisao(Visao):
         texto_ano = CTkEntry(container)
         texto_ano.grid(column=2, row=5, pady=10, padx=10)
 
-        label_salario_pessoa = CTkLabel(container, text="DIGITE O SALARIO DO PESSOA")
+        label_salario_pessoa = CTkLabel(container, text="DIGITE O SALARIO DA PESSOA")
         label_salario_pessoa.grid(row=6, column=1)
         texto_salario = CTkEntry(container)
         texto_salario.grid(column=1,row=7,pady=10, padx=10)
     
-        label_telefone_pessoa = CTkLabel(container, text="DIGITE O TELEFONE DO PESSOA")
+        label_telefone_pessoa = CTkLabel(container, text="DIGITE O TELEFONE DA PESSOA")
         label_telefone_pessoa.grid(row=8, column=1)
         texto_telefone = CTkEntry(container)
         texto_telefone.grid(column=1,row=9,pady=10)
 
-        label_funcao_pessoa = CTkLabel(container, text="DIGITE A FUNÇÃO DO PESSOA")
+        label_funcao_pessoa = CTkLabel(container, text="DIGITE A FUNÇÃO DA PESSOA")
         label_funcao_pessoa.grid(row=12, column=1)
         texto_funcao = CTkEntry(container)
         texto_funcao.grid(column=1,row=13,pady=10)
 
-        label_funcao_pessoa = CTkLabel(container, text="DIGITE A FUNÇÃO DO PESSOA")
+        label_funcao_pessoa = CTkLabel(container, text="DIGITE A FUNÇÃO DA PESSOA")
         label_funcao_pessoa.grid(row=12, column=1)
         texto_funcao = CTkEntry(container)
         texto_funcao.grid(column=1,row=13,pady=10)
@@ -170,10 +167,9 @@ class PessoaVisao(Visao):
             scroll.configure(command=resultado.yview)
             scroll.configure(command=resultado.xview)
 
-            resultado['columns'] = ('nome', 'cpf', 'data', 'salario', 'telefone', 'funcao')
+            resultado['columns'] = ('nome', 'data', 'salario', 'telefone', 'funcao')
             resultado.column("#0", width=0,  stretch=NO)
             resultado.column("nome",anchor=CENTER, width=80)
-            resultado.column("cpf",anchor=CENTER,width=80)
             resultado.column("data",anchor=CENTER,width=80)
             resultado.column("salario",anchor=CENTER,width=80)
             resultado.column("telefone",anchor=CENTER,width=80)
@@ -181,7 +177,7 @@ class PessoaVisao(Visao):
 
             resultado.heading("#0",text="",anchor=CENTER)
             resultado.heading("nome",text="Nome",anchor=CENTER)
-            resultado.heading("cpf",text="CPF",anchor=CENTER)
+            #resultado.heading("cpf",text="CPF",anchor=CENTER)
             resultado.heading("data",text="Data de nascimento",anchor=CENTER)
             resultado.heading("salario",text="Salário (R$)",anchor=CENTER)
             resultado.heading("telefone",text="Telefone",anchor=CENTER)
@@ -189,7 +185,7 @@ class PessoaVisao(Visao):
 
             for (indice, pessoa) in enumerate(achados):
                 resultado.insert(parent='',index='end',iid=indice,text='',
-                                 values=(pessoa[0],pessoa[1], pessoa[2], pessoa[3], pessoa[4], pessoa[5]))
+                                 values=(pessoa[0],pessoa[1], pessoa[3], pessoa[4], pessoa[5]))
 
             lbl_janela = CTkLabel(janela_achados, text="RESULTADO DA PESQUISA").pack(pady=10, padx=10)
 

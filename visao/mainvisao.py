@@ -46,7 +46,7 @@ class MainVisao:
             def checa_bd():
                 user_get = texto_user.get()
                 senha_get = texto_senha.get()
-                achou = self.usuario_controle.buscar(user_get, senha_get)
+                achou = self.usuario_controle.buscar(user_get, senha_get, True)
                 print(f"Achou: {achou}")
                 if achou:
                     menu_logado(achou)
@@ -78,7 +78,7 @@ class MainVisao:
         
         root = CTk()
         root.geometry("350x450")
-        root.title('MENU INICIAL - GERENCIAMENTO DE TIME')
+        root.title('MENU INICIAL - NFL MANAGER')
         root.resizable(0, 0)
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
