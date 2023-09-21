@@ -1,2 +1,5 @@
 .vscode/
-__pycache__/
+./controle/__pycache__/
+./persistencia/__pycache__/
+./modelo/__pycache__/
+./visao/__pycache__/
