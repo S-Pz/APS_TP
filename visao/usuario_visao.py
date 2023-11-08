@@ -11,6 +11,7 @@ class UsuarioVisao(Visao):
     def __init__(self, controle: Controle):
         super().__init__(controle)
 
+<<<<<<< HEAD
     def chama_menu(self, tipo_user):
         global top_usuario
         top_usuario = CTk()
@@ -35,6 +36,39 @@ class UsuarioVisao(Visao):
 
         user_buscar  = CTkButton(container, text="BUSCAR USUÁRIO", command=self.buscar).grid(pady=10, padx=10)
         user_voltar = CTkButton(container, text="VOLTAR AO MENU INICIAL", command=top_usuario.destroy).grid(pady=10, padx=10)
+=======
+    def limpa_tela(self):
+        for widget in top_user.winfo_children():
+            widget.grid_remove()
+
+    def menu_inicial_user(self):
+        self.limpa_tela()
+        container = CTkFrame(top_user)
+        container.grid(pady=10, padx=10)
+
+        btn_voltar  = CTkButton(container, text="VOLTAR", command=top_user.destroy)
+        btn_voltar.grid(pady=10, padx=10)
+        btn_buscar = CTkButton(container, text="BUSCAR USUARIO", command=self.buscar)
+        btn_buscar.grid(pady=10, padx=10)
+
+    def menu(self, tipo_user: int):
+        global top_user
+        top_user = CTk()
+        top_user.geometry("350x450")
+        top_user.title("MENU DE USUÁRIOS")
+        container = CTkFrame(top_user)
+        container.grid()
+        top_user.resizable(0, 0)
+        top_user.columnconfigure(0, weight=1)
+        top_user.rowconfigure(0, weight=1)
+
+        user_voltar = CTkButton(container, text="VOLTAR AO MENU INICIAL", command=top_user.destroy).grid(pady=10, padx=10)
+        if tipo_user == 2:
+            user_ins = CTkButton(container, text="INSERIR USUÁRIO", command=self.gravar).grid(pady=10, padx=10)
+            user_exc = CTkButton(container, text="EXCLUIR USUÁRIO", command=self.apagar).grid(pady=10, padx=10)
+        user_buscar  = CTkButton(container, text="BUSCAR USUÁRIO", command=self.buscar).grid(pady=10, padx=10)
+        btn_voltar   = CTkButton(top_user, text="VOLTAR", command=top_user.destroy).grid(pady=10, padx=10)
+>>>>>>> origin/main
 
     def gravar(self, nome_pessoa):
         def persistir():
@@ -57,16 +91,27 @@ class UsuarioVisao(Visao):
                 if salvou_ou_nao:
                     gravou_janela.title("CADASTRO BEM SUCEDIDO")
                     label_gravou = CTkLabel(gravou_janela, text="USUÁRIO CADASTRADO COM SUCESSO").grid(pady=10, padx=10)
+<<<<<<< HEAD
                     btn_gravou = CTkButton(gravou_janela, text="OK", command= lambda: [gravou_janela.destroy(), top_usuario_gravar.destroy()]).grid(pady=10, padx=10)
+=======
+                    btn_gravou = CTkButton(gravou_janela, text="OK", command= lambda: [gravou_janela.destroy(), top_user_gravar.destroy()])
+>>>>>>> origin/main
                 else:
                     gravou_janela.title("CADASTRO NÃO REALIZADO")
                     label_nao_gravou = CTkLabel(gravou_janela, text="REVISE OS DADOS").grid(pady=10, padx=10)
                     btn_gravou = CTkButton(gravou_janela, text="OK", command=gravou_janela.destroy).grid(pady=10, padx=10)
 
+<<<<<<< HEAD
         top_usuario_gravar = CTk()
         top_usuario_gravar.title("INSERIR USUÁRIO")
 
         container = CTkFrame(top_usuario_gravar)
+=======
+        top_user_gravar = CTk()
+        top_user_gravar.title("INSERIR USUÁRIO")
+
+        container = CTkFrame(top_user_gravar)
+>>>>>>> origin/main
         container.grid()
 
         lbl_id_user = CTkLabel(container, text="DIGITE O USERNAME").grid(pady=10, padx=10)
@@ -82,9 +127,15 @@ class UsuarioVisao(Visao):
         texto_confirma.grid(pady=10, padx=10)
 
         btn_cadastrar = CTkButton(container, text="CADASTRAR USUÁRIO", command=persistir).grid(pady=10, padx=10)
+<<<<<<< HEAD
         #btn_voltar = CTkButton(container, text="VOLTAR", command=container.destroy).grid(pady=10, padx=10)
 
     def apagar(self): 
+=======
+        btn_voltar = CTkButton(container, text="VOLTAR", command=container.destroy).grid(pady=10, padx=10)
+
+    def apagar(self):  # virar CTkEntry
+>>>>>>> origin/main
         def exclui():
             user_id = texto_id.get()
             if self.controle.apagar(user_id):
@@ -92,13 +143,18 @@ class UsuarioVisao(Visao):
                 ok_exc.title("")
                 lbl_ok = CTkLabel(ok_exc, text="USUÁRIO EXCLUÍDO COM SUCESSO").grid()
                 btn_ok = CTkButton(ok_exc, text="OK", command=ok_exc.destroy).grid()
+<<<<<<< HEAD
                 top_usuario_exclusao.destroy()
+=======
+                top_user_exclusao.destroy()
+>>>>>>> origin/main
             else:
                 ok_exc = CTkToplevel()
                 ok_exc.title("")
                 lbl_ok = CTkLabel(ok_exc, text="Não há um usuário com esse ID.").grid()
                 btn_ok = CTkButton(ok_exc, text="OK", command=ok_exc.destroy).grid()
 
+<<<<<<< HEAD
         top_usuario_exclusao = CTkToplevel()
         top_usuario_exclusao.title("EXCLUIR USUÁRIO")
 
@@ -108,6 +164,17 @@ class UsuarioVisao(Visao):
 
         btn_insere = CTkButton(top_usuario_exclusao, text="EXCLUIR USUÁRIO", command=exclui).grid()
         btn_voltar = CTkButton(top_usuario_exclusao, text="VOLTAR",command=top_usuario_exclusao.destroy).grid()
+=======
+        top_user_exclusao = CTkToplevel()
+        top_user_exclusao.title("EXCLUIR USUÁRIO")
+
+        lbl_id_user = CTkLabel(top_user_exclusao, text="DIGITE O USERNAME DO USUÁRIO").grid()
+        texto_id = CTkEntry(top_user_exclusao, font=("Helvetica", 18))
+        texto_id.grid(pady=10)
+
+        btn_insere = CTkButton(top_user_exclusao, text="EXCLUIR USUÁRIO", command=exclui).grid()
+        btn_voltar = CTkButton(top_user_exclusao, text="VOLTAR",command=top_user_exclusao.destroy).grid()
+>>>>>>> origin/main
 
     def buscar(self):
         def procura():
@@ -116,7 +183,11 @@ class UsuarioVisao(Visao):
             if achados:
                 janela_achados = CTkToplevel()
                 janela_achados.title("RESULTADO DA PESQUISA")
+<<<<<<< HEAD
                 janela_achados.geometry("1000x600")
+=======
+                janela_achados.geometry("600x600")
+>>>>>>> origin/main
 
                 frame_pesquisa = CTkFrame(janela_achados)
                 frame_pesquisa.pack(pady=10, padx=10)
@@ -133,20 +204,34 @@ class UsuarioVisao(Visao):
                 scroll.configure(command=resultado.yview)
                 scroll.configure(command=resultado.xview)
 
+<<<<<<< HEAD
                 resultado['columns'] = ('tipo', 'login', 'senha')
                 resultado.column("#0", width=0,  stretch=NO)
                 resultado.column("tipo",anchor=CENTER, width=80)
                 resultado.column("login",anchor=CENTER,width=80)
                 resultado.column("senha",anchor=CENTER,width=80)
+=======
+                resultado['columns'] = ('tipo', 'login')
+                resultado.column("#0", width=0,  stretch=NO)
+                resultado.column("tipo",anchor=CENTER, width=80)
+                resultado.column("login",anchor=CENTER,width=80)
+>>>>>>> origin/main
 
                 resultado.heading("#0",text="",anchor=CENTER)
                 resultado.heading("tipo",text="Username",anchor=CENTER)
                 resultado.heading("login",text="Tipo",anchor=CENTER)
+<<<<<<< HEAD
                 resultado.heading("senha",text="Senha",anchor=CENTER)
 
                 for (indice, pessoa) in enumerate(achados):
                     resultado.insert(parent='',index='end',iid=indice,text='',
                                      values=(pessoa[0],pessoa[1],pessoa[2]))
+=======
+
+                for (indice, pessoa) in enumerate(achados):
+                    resultado.insert(parent='',index='end',iid=indice,text='',
+                                     values=(pessoa[0],pessoa[1]))
+>>>>>>> origin/main
 
                 lbl_janela = CTkLabel(janela_achados, text="RESULTADO DA PESQUISA").pack(pady=10, padx=10)
 
@@ -157,6 +242,7 @@ class UsuarioVisao(Visao):
                 nao_achou_btn = CTkButton(nao_achou, text="OK", command=nao_achou.destroy)
 
         self.limpa_tela()
+<<<<<<< HEAD
         top_usuario_buscar = CTkFrame(top_usuario)
         top_usuario_buscar.grid(pady=10, padx=10)
 
@@ -167,4 +253,16 @@ class UsuarioVisao(Visao):
         btn_buscar = CTkButton(top_usuario_buscar, text="BUSCAR", command=procura)
         btn_buscar.grid(pady=10, padx=10)
         btn_voltar = CTkButton(top_usuario_buscar, text="VOLTAR", command=lambda: self.menu(2))
+=======
+        top_user_buscar = CTkFrame(top_user)
+        top_user_buscar.grid(pady=10, padx=10)
+
+        lbl_id_user = CTkLabel(top_user_buscar, text="DIGITE O USERNAME DO USUÁRIO").grid(pady=10, padx=10)
+        texto_id = CTkEntry(top_user_buscar, font=("Helvetica", 18))
+        texto_id.grid(pady=10)
+
+        btn_buscar = CTkButton(top_user_buscar, text="BUSCAR", command=procura)
+        btn_buscar.grid(pady=10, padx=10)
+        btn_voltar = CTkButton(top_user_buscar, text="VOLTAR", command=self.menu_inicial_user)
+>>>>>>> origin/main
         btn_voltar.grid(pady=10, padx=10)

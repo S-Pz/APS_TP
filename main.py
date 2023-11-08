@@ -32,7 +32,10 @@ TABLES['USUARIO'] = (
         "`senha` varchar(30) NOT NULL,"
         "PRIMARY KEY(`login`),"
         "FOREIGN KEY (`nome`) REFERENCES PESSOA(`nome`)"
+<<<<<<< HEAD
         "ON DELETE CASCADE"
+=======
+>>>>>>> origin/main
         ") DEFAULT CHARSET = utf8"
         )
 
@@ -50,11 +53,18 @@ TABLES['PRODUTO'] = (
         "CREATE TABLE `PRODUTO` ("
         "`nome` varchar(30) NOT NULL,"
         "`preco` decimal(11,2) NOT NULL,"
+<<<<<<< HEAD
         "`qtd` int NOT NULL,"
         "`cnpj_forn` varchar(30) NOT NULL,"
         "UNIQUE KEY `nome` (`nome`),"  
         "FOREIGN KEY(`cnpj_forn`) REFERENCES FORNECEDOR(`cnpj`)"
         "ON DELETE CASCADE"
+=======
+        "`qtd` date NOT NULL,"
+        "`cnpj_forn` varchar(30) NOT NULL,"
+        "UNIQUE KEY `nome` (`nome`),"  
+        "FOREIGN KEY(`cnpj_forn`) REFERENCES FORNECEDOR(`cnpj`)"
+>>>>>>> origin/main
         ") DEFAULT CHARSET = utf8"
         )
 
@@ -71,7 +81,11 @@ TABLES['PATROCINADOR'] = (
         ") DEFAULT CHARSET = utf8"
         )
 
+<<<<<<< HEAD
 cnx = mysql.connector.connect(user='root', host='localhost', port='3306', password='Senha#123')
+=======
+cnx = mysql.connector.connect(user='root', host='localhost', port='3306', password='senha')
+>>>>>>> origin/main
 cursor = cnx.cursor()
 
 def create_database(cursor):

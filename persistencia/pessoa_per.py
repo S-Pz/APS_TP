@@ -4,7 +4,11 @@ import mysql.connector
 
 class PessoaPersistencia(Persistencia):
     def gravar(self, entidade: Pessoa) -> bool:
+<<<<<<< HEAD
         conexao = mysql.connector.connect(user='root', password='Senha#123', database='NFL') 
+=======
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+>>>>>>> origin/main
         cursor = conexao.cursor()
         add_pessoa = ("INSERT INTO PESSOA"
                      "(nome, cpf, data_nasc, salario, telefone, funcao)"
@@ -25,7 +29,11 @@ class PessoaPersistencia(Persistencia):
             return False
 
     def apagar(self, cpf: str):
+<<<<<<< HEAD
         conexao = mysql.connector.connect(user='root', password='Senha#123', database='NFL') 
+=======
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+>>>>>>> origin/main
         cursor = conexao.cursor()
         del_pessoa = ("DELETE FROM PESSOA WHERE CPF=%s")
         try:
@@ -43,7 +51,11 @@ class PessoaPersistencia(Persistencia):
             return False
     
     def buscar(self, termo: str):
+<<<<<<< HEAD
         conexao = mysql.connector.connect(user='root', password='Senha#123', database='NFL') 
+=======
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+>>>>>>> origin/main
         cursor = conexao.cursor()
         print(f"Termo: {termo}")
         busca_pessoa = ("SELECT * FROM PESSOA WHERE NOME LIKE %s")

@@ -2,6 +2,7 @@ from customtkinter import *
 
 from visao.pessoa_visao import PessoaVisao
 from visao.usuario_visao import UsuarioVisao
+<<<<<<< HEAD
 from visao.patrocinador_visao import PatrocinadorVisao
 from visao.fornecedor_visao import FornecedorVisao
 from visao.produto_visao import ProdutoVisao
@@ -11,20 +12,29 @@ from controle.usuario_cont import UsuarioControle
 from controle.fornecedor_cont import FornecedorControle
 from controle.patrocinador_cont import PatrocinadorControle
 from controle.produto_cont import ProdutoControle
+=======
+
+from controle.pessoa_cont import PessoaControle
+from controle.usuario_cont import UsuarioControle
+>>>>>>> origin/main
 
 class MainVisao:
     def __init__(self):
         self.pessoa_controle = PessoaControle()
         self.usuario_controle = UsuarioControle()
+<<<<<<< HEAD
         self.fornecedor_controle = FornecedorControle()
         self.patrocinador_controle = PatrocinadorControle()
         self.produto_controle = ProdutoControle()
+=======
+>>>>>>> origin/main
 
     def menu(self):
         def menu_logado(tipo_user):
             limpa_tela()
             tela_logado = CTkFrame(root)
             tela_logado.grid()
+<<<<<<< HEAD
             btn_pessoa = CTkButton(tela_logado, text="PESSOA", command= lambda: pessoa_visao.chama_menu(tipo_user))
             btn_pessoa.grid(pady=10, padx=10)
             btn_patrocinador = CTkButton(tela_logado, text="PATROCINADOR", command= lambda: patrocinador_visao.chama_menu(tipo_user))
@@ -33,6 +43,12 @@ class MainVisao:
             btn_fornecedor.grid(pady=10, padx=10)
             if tipo_user == 2:
                 btn_user = CTkButton(tela_logado, text="USUÁRIO", command= lambda: usuario_visao.chama_menu(tipo_user))
+=======
+            btn_pessoa = CTkButton(tela_logado, text="PESSOA", command= lambda: pessoa_visao.menu(tipo_user))
+            btn_pessoa.grid(pady=10, padx=10)
+            if tipo_user == 2:
+                btn_user = CTkButton(tela_logado, text="USUÁRIO", command= lambda: usuario_visao.menu(tipo_user))
+>>>>>>> origin/main
                 btn_user.grid(pady=10, padx=10)
             btn_voltar = CTkButton(tela_logado, text="VOLTAR", command=menu_inicial)
             btn_voltar.grid(pady=10, padx=10)
@@ -98,8 +114,11 @@ class MainVisao:
         menu_inicial()
         pessoa_visao = PessoaVisao(self.pessoa_controle)
         usuario_visao = UsuarioVisao(self.usuario_controle)
+<<<<<<< HEAD
         patrocinador_visao = PatrocinadorVisao(self.patrocinador_controle)
         fornecedor_visao = FornecedorVisao(self.fornecedor_controle, self.produto_controle)
         produto_visao = ProdutoVisao(self.produto_controle)
+=======
+>>>>>>> origin/main
         
         root.mainloop()

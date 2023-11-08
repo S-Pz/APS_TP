@@ -4,7 +4,11 @@ import mysql.connector
 
 class UsuarioPersistencia(Persistencia):
     def gravar(self, entidade: Usuario):
+<<<<<<< HEAD
         conexao = mysql.connector.connect(user='root', password='Senha#123', database='NFL') 
+=======
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+>>>>>>> origin/main
         cursor = conexao.cursor()
         add_usuario = ("INSERT INTO USUARIO "
                        "(nome, tipo, login, senha) "
@@ -25,7 +29,11 @@ class UsuarioPersistencia(Persistencia):
             return False
     
     def apagar(self, login: str):
+<<<<<<< HEAD
         conexao = mysql.connector.connect(user='root', password='Senha#123', database='NFL') 
+=======
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+>>>>>>> origin/main
         cursor = conexao.cursor()
         try: 
             del_usuario = ("DELETE FROM USUARIO WHERE LOGIN=%s")
@@ -43,7 +51,11 @@ class UsuarioPersistencia(Persistencia):
             return False
     
     def buscar(self, nome: str, *args): # True: buscar banco, False: buscar usuario
+<<<<<<< HEAD
         conexao = mysql.connector.connect(user='root', password='Senha#123', database='NFL') 
+=======
+        conexao = mysql.connector.connect(user='root', password='senha', database='NFL') 
+>>>>>>> origin/main
         cursor = conexao.cursor()
         print(f"Len args: {len(args)} args: {args[0]}")
 
